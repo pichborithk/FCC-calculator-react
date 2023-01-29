@@ -104,12 +104,12 @@ const App = () => {
         setInput(
           lastChar === '.' || input.includes('.') ? `${input}` : `${input}.`
         );
+        const formattedValue =
+          lastChar === '.' || input.includes('.')
+            ? `${calculatorData}`
+            : `${calculatorData}.`;
+        setCalculatorData(formattedValue);
       }
-      const formattedValue =
-        lastChar === '.' || input.includes('.')
-          ? `${calculatorData}`
-          : `${calculatorData}.`;
-      setCalculatorData(formattedValue);
     }
   };
 
@@ -118,15 +118,13 @@ const App = () => {
       setInput(`${value}`);
       const beforeLastChar = calculatorData.charAt(calculatorData.length - 2);
 
-      const beforeLastCharIsOperator = operators.includes(
-        beforeLastChar || beforeLastChar === '*'
-      );
+      const beforeLastCharIsOperator =
+        operators.includes(beforeLastChar) || beforeLastChar === '*';
 
-      const lastChar = calculatorData.charCodeAt(calculatorData.length - 1);
+      const lastChar = calculatorData.charAt(calculatorData.length - 1);
 
-      const lastCharIsOperator = operators.includes(
-        lastChar || lastChar === '*'
-      );
+      const lastCharIsOperator =
+        operators.includes(lastChar) || lastChar === '*';
 
       const validOp = value === 'x' ? '*' : value;
 
@@ -168,7 +166,7 @@ const App = () => {
         handleNumbers(value);
         break;
       case '.':
-        dotOperator();
+        dotOperator(value);
         break;
       case operator:
         handleOperators(value);
